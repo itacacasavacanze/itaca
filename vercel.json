@@ -1,7 +1,4 @@
 {
-    "api": {
-        "bodyParser": false
-    },
     "rewrites": [
         {
             "source": "/api/(.*)",
