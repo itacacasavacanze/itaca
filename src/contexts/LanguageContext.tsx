@@ -63,7 +63,7 @@ const translations = {
     booked: 'Booked',
     pastDate: 'Past Date',
     readyToBook: 'Ready to Book?',
-    readyToBookText: 'Contact us directly to secure your preferred dates and receive personalized assistance',
+    readyToBookText: 'Contact us to reserve your perfect Mediterranean getaway. Enjoy our exclusive direct booking rates.',
 
     // Contact
     contactTitle: 'Book your stay',
@@ -98,6 +98,15 @@ const translations = {
     terrace: 'Terrace',
     balcony: 'Balcony',
     kitchen: 'Kitchen',
+    readAndAccept: 'I have read and accept the',
+    andText: 'and',
+    consentRequiredTitle: 'Consent Required',
+    consentRequiredDesc: 'Please accept the Terms and Conditions and Privacy Policy to proceed.',
+    checkInAndOut: 'Check in & Check out',
+    checkInOnly: 'Check in',
+    checkOutOnly: 'Check out',
+    fromTime: 'From 15:00 pm',
+    upToTime: 'Up to 11:00 am',
   },
   it: {
     // Navigation
@@ -151,7 +160,7 @@ const translations = {
     booked: 'Prenotato',
     pastDate: 'Data Passata',
     readyToBook: 'Pronto a Prenotare?',
-    readyToBookText: 'Contattaci direttamente per assicurarti le date preferite e ricevere assistenza personalizzata',
+    readyToBookText: 'Contattaci per prenotare la tua vacanza mediterranea perfetta. Goditi le nostre tariffe esclusive per prenotazioni dirette.',
 
     // Contact
     contactTitle: 'Prenota il tuo soggiorno',
@@ -186,6 +195,15 @@ const translations = {
     terrace: 'Terrazza',
     balcony: 'Balcone',
     kitchen: 'Cucina',
+    readAndAccept: 'Ho letto e accetto i',
+    andText: 'e la',
+    consentRequiredTitle: 'Consenso Richiesto',
+    consentRequiredDesc: 'Per favore, accetta i Termini e Condizioni e la Privacy Policy per procedere.',
+    checkInAndOut: 'Check in e Check out',
+    checkInOnly: 'Check in',
+    checkOutOnly: 'Check out',
+    fromTime: 'Dalle 15:00',
+    upToTime: 'Fino alle 11:00',
   },
   es: {
     // Navigation
@@ -239,7 +257,7 @@ const translations = {
     booked: 'Reservado',
     pastDate: 'Fecha Pasada',
     readyToBook: '¿Listo para Reservar?',
-    readyToBookText: 'Contáctanos directamente para asegurar tus fechas preferidas y recibir asistencia personalizada',
+    readyToBookText: 'Contáctanos para reservar tu escapada mediterránea perfecta. Disfruta de nuestras tarifas exclusivas para reservas directas.',
 
     // Contact
     contactTitle: 'Reserva tu estancia',
@@ -274,6 +292,15 @@ const translations = {
     terrace: 'Terraza',
     balcony: 'Balcón',
     kitchen: 'Cocina',
+    readAndAccept: 'He leído y acepto los',
+    andText: 'y la',
+    consentRequiredTitle: 'Consentimiento Requerido',
+    consentRequiredDesc: 'Por favor, acepte los Términos y Condiciones y la Política de Privacidad para continuar.',
+    checkInAndOut: 'Check in y Check out',
+    checkInOnly: 'Check in',
+    checkOutOnly: 'Check out',
+    fromTime: 'Desde las 15:00',
+    upToTime: 'Hasta las 11:00',
   },
 };
 

@@ -108,8 +108,22 @@ export const Footer: React.FC = () => {
           </div>
         </div>
 
-        {/* Bottom Bar */}
+        {/* Legal Info */}
         <div className="mt-12 pt-8 border-t border-primary-foreground/20">
+          <div className="text-xs text-primary-foreground/50 leading-relaxed space-y-1 mb-6">
+            <p>
+              <span className="font-semibold">CIN:</span> IT088010C2MLNFYWL &nbsp;|&nbsp;
+              <span className="font-semibold">CIR:</span> 19088010C237458
+            </p>
+            <p>
+              <span className="font-semibold">Denominazione struttura:</span> Casa Vacanza &nbsp;|&nbsp;
+              <span className="font-semibold">Indirizzo:</span> Corso Oceano Atlantico 28 &nbsp;|&nbsp;
+              <span className="font-semibold">Comune:</span> Santa Croce Camerina &nbsp;|&nbsp;
+              <span className="font-semibold">Regione:</span> Sicilia
+            </p>
+          </div>
+
+          {/* Bottom Bar */}
           <div className="flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0">
             <div className="text-sm text-primary-foreground/70">
               © {new Date().getFullYear()} Itaca Casa Vacanze. All rights reserved.

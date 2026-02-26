@@ -11,6 +11,17 @@ Email: info@itacasavacanze.com
 Telefono: +39 339 705 6198  
 Sito web: https://itacasavacanze.com
 
+CIN: ITO88010C2MLNFYWL
+CIR: 19088010C237458
+
+DENOMINAZIONE STRUTTURA: Casa Vacanza
+INDIRIZZO: Corso Oceano Atlantico 28 –
+COMUNE: Santa Croce Camerina
+REGIONE: Sicilia
+PROVINCIA: Ragusa
+
+STATO ATTIVITÀ: attiva
+
 ---
 
 ## 1. OGGETTO E FINALITÀ DEL TRATTAMENTO

@@ -65,7 +65,7 @@ export const AvailabilityCalendar: React.FC = () => {
         )}
         {!availability.available && (
           <div className="text-xs font-medium text-white bg-destructive/90 rounded px-1 py-0.5 mt-1">
-            Booked
+            {t('booked')}
           </div>
         )}
       </div>
@@ -126,7 +126,7 @@ export const AvailabilityCalendar: React.FC = () => {
           </h2>
           <div className="w-20 h-1 bg-gradient-sea rounded-full mx-auto"></div>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            {t('availabilitySubtitle')} Best rates guaranteed with exclusive online discounts.
+            {t('availabilitySubtitle')}
           </p>
         </div>
 
@@ -155,15 +155,15 @@ export const AvailabilityCalendar: React.FC = () => {
           <div className="mt-8 flex flex-wrap items-center justify-center gap-6 text-sm">
             <div className="flex items-center space-x-2">
               <div className="w-4 h-4 bg-primary rounded border"></div>
-              <span className="text-muted-foreground">Available</span>
+              <span className="text-muted-foreground">{t('available')}</span>
             </div>
             <div className="flex items-center space-x-2">
               <div className="w-4 h-4 bg-destructive rounded border"></div>
-              <span className="text-muted-foreground">Booked</span>
+              <span className="text-muted-foreground">{t('booked')}</span>
             </div>
             <div className="flex items-center space-x-2">
               <div className="w-4 h-4 bg-muted rounded border"></div>
-              <span className="text-muted-foreground">Past Date</span>
+              <span className="text-muted-foreground">{t('pastDate')}</span>
             </div>
           </div>
 
@@ -172,10 +172,10 @@ export const AvailabilityCalendar: React.FC = () => {
             <div className="bg-cream border border-border rounded-2xl p-8">
               <CalendarIcon className="h-12 w-12 text-primary mx-auto mb-4" />
               <h3 className="text-2xl font-heading font-semibold text-foreground mb-2">
-                Ready to Book?
+                {t('readyToBook')}
               </h3>
               <p className="text-muted-foreground mb-6">
-                Contact us to reserve your perfect Mediterranean getaway. Enjoy our exclusive direct booking rates.
+                {t('readyToBookText')}
               </p>
               <div className="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-4">
                 <Button

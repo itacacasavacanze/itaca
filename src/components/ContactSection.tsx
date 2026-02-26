@@ -7,6 +7,7 @@ import { Input } from './ui/input';
 import { Textarea } from './ui/textarea';
 import { useToast } from '../hooks/use-toast';
 import { useContactStore } from '../hooks/useContactStore';
+import { Checkbox } from './ui/checkbox';
 
 import {
   Select,
@@ -29,6 +30,7 @@ export const ContactSection: React.FC = () => {
     apartmentPref: 'any',
     message: ''
   });
+  const [agreedToTerms, setAgreedToTerms] = useState(false);
 
   useEffect(() => {
     setFormData(prev => ({ ...prev, checkIn: checkInDate, checkOut: checkOutDate }));
@@ -41,6 +43,15 @@ export const ContactSection: React.FC = () => {
       toast({
         title: "Invalid Dates",
         description: "Check-out date must be after check-in date.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    if (!agreedToTerms) {
+      toast({
+        title: t('consentRequiredTitle'),
+        description: t('consentRequiredDesc'),
         variant: "destructive",
       });
       return;
@@ -70,6 +81,7 @@ export const ContactSection: React.FC = () => {
         });
         setFormData({ name: '', email: '', checkIn: '', checkOut: '', adults: '2', apartmentPref: 'any', message: '' });
         setDates('', '');
+        setAgreedToTerms(false);
       }, (error) => {
         console.log(error.text);
         toast({
@@ -249,6 +261,28 @@ export const ContactSection: React.FC = () => {
                   </div>
                 </div>
 
+                <div className="flex items-start space-x-2 p-3 bg-muted/50 rounded-lg border border-border">
+                  <Checkbox
+                    id="terms"
+                    checked={agreedToTerms}
+                    onCheckedChange={(checked) => setAgreedToTerms(checked === true)}
+                    className="mt-1"
+                  />
+                  <label
+                    htmlFor="terms"
+                    className="text-xs leading-relaxed text-foreground cursor-pointer"
+                  >
+                    {t('readAndAccept')}{" "}
+                    <a href="/terms" target="_blank" className="text-primary hover:underline font-semibold">
+                      {t('termsConditions')}
+                    </a>{" "}
+                    {t('andText')}{" "}
+                    <a href="/privacy" target="_blank" className="text-primary hover:underline font-semibold">
+                      {t('privacyPolicy')}
+                    </a>. *
+                  </label>
+                </div>
+
                 <div className="space-y-2">
                   <label htmlFor="message" className="text-sm font-medium text-foreground">
                     {t('specialRequests')}
@@ -306,16 +340,16 @@ export const ContactSection: React.FC = () => {
                 <div className="w-12 h-12 bg-gradient-sunset rounded-lg flex items-center justify-center">
                   <Clock className="h-6 w-6 text-background" />
                 </div>
-                <h3 className="text-xl font-semibold text-foreground">Check in & Check out</h3>
+                <h3 className="text-xl font-semibold text-foreground">{t('checkInAndOut')}</h3>
               </div>
               <div className="space-y-2 text-muted-foreground">
                 <div className="flex justify-between">
-                  <span>Check in</span>
-                  <span className="font-medium">From 15:00 pm</span>
+                  <span>{t('checkInOnly')}</span>
+                  <span className="font-medium">{t('fromTime')}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span>Check out</span>
-                  <span className="font-medium">Up to 11:00 am</span>
+                  <span>{t('checkOutOnly')}</span>
+                  <span className="font-medium">{t('upToTime')}</span>
                 </div>
 
               </div>
