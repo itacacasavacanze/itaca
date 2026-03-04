@@ -11,7 +11,7 @@ type ValuePiece = Date | null;
 type Value = ValuePiece | [ValuePiece, ValuePiece];
 
 export const AvailabilityCalendar: React.FC = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const [value, setValue] = useState<Value>(null);
   const [availabilityData, setAvailabilityData] = useState<Record<string, AvailabilityData>>({});
   const [loading, setLoading] = useState(true);
@@ -122,7 +122,7 @@ export const AvailabilityCalendar: React.FC = () => {
         {/* Header */}
         <div className="text-center space-y-4 mb-16">
           <h2 className="text-4xl lg:text-5xl font-heading font-bold text-foreground">
-            {t('availability')} & Rates
+            {t('availability')} & {t('rates')}
           </h2>
           <div className="w-20 h-1 bg-gradient-sea rounded-full mx-auto"></div>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
@@ -147,6 +147,7 @@ export const AvailabilityCalendar: React.FC = () => {
                 showNeighboringMonth={false}
                 minDate={new Date()}
                 className="mediterranean-calendar"
+                locale={language === 'it' ? 'it-IT' : language === 'es' ? 'es-ES' : 'en-GB'}
               />
             </div>
           </div>

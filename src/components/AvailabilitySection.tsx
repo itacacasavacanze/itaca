@@ -5,7 +5,7 @@ import { Button } from './ui/button';
 import { calculatePrice } from '../services/pricingService';
 
 export const AvailabilitySection: React.FC = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const [currentMonth, setCurrentMonth] = useState(new Date());
 
   const getDaysInMonth = (date: Date) => {
@@ -43,12 +43,22 @@ export const AvailabilitySection: React.FC = () => {
     });
   };
 
-  const monthNames = [
-    'January', 'February', 'March', 'April', 'May', 'June',
-    'July', 'August', 'September', 'October', 'November', 'December'
-  ];
+  const locale = language === 'it' ? 'it-IT' : language === 'es' ? 'es-ES' : 'en-GB';
 
-  const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  const getMonthName = (date: Date) =>
+    date.toLocaleDateString(locale, { month: 'long', year: 'numeric' });
+
+  const getDayNames = () => {
+    // Generate short day names starting from Sunday using the active locale
+    const baseDate = new Date(2024, 0, 7); // Sunday Jan 7, 2024
+    return Array.from({ length: 7 }, (_, i) => {
+      const d = new Date(baseDate);
+      d.setDate(baseDate.getDate() + i);
+      return d.toLocaleDateString(locale, { weekday: 'short' });
+    });
+  };
+
+  const dayNames = getDayNames();
 
   const days = getDaysInMonth(currentMonth);
 
@@ -58,7 +68,7 @@ export const AvailabilitySection: React.FC = () => {
         {/* Header */}
         <div className="text-center space-y-4 mb-16">
           <h2 className="text-4xl lg:text-5xl font-heading font-bold text-foreground">
-            {t('availability')} & Rates
+            {t('availability')} & {t('rates')}
           </h2>
           <div className="w-20 h-1 bg-gradient-sea rounded-full mx-auto"></div>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
@@ -80,7 +90,7 @@ export const AvailabilitySection: React.FC = () => {
               </Button>
 
               <h3 className="text-2xl font-heading font-semibold">
-                {monthNames[currentMonth.getMonth()]} {currentMonth.getFullYear()}
+                {getMonthName(currentMonth)}
               </h3>
 
               <Button

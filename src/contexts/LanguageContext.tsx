@@ -16,6 +16,7 @@ const translations = {
     home: 'Home',
     rooms: 'Rooms & Rates',
     availability: 'Availability',
+    rates: 'Rates',
     contact: 'Contact',
     about: 'About',
 
@@ -113,6 +114,7 @@ const translations = {
     home: 'Home',
     rooms: 'Camere e Tariffe',
     availability: 'Disponibilità',
+    rates: 'Tariffe',
     contact: 'Contatti',
     about: 'Chi Siamo',
 
@@ -210,6 +212,7 @@ const translations = {
     home: 'Inicio',
     rooms: 'Habitaciones y Tarifas',
     availability: 'Disponibilidad',
+    rates: 'Tarifas',
     contact: 'Contacto',
     about: 'Nosotros',
 

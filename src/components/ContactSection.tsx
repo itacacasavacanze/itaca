@@ -8,6 +8,10 @@ import { Textarea } from './ui/textarea';
 import { useToast } from '../hooks/use-toast';
 import { useContactStore } from '../hooks/useContactStore';
 import { Checkbox } from './ui/checkbox';
+import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
+import { Calendar as CalendarComponent } from "./ui/calendar";
+import { format } from "date-fns";
+import { cn } from "@/lib/utils";
 
 import {
   Select,
@@ -107,6 +111,17 @@ export const ContactSection: React.FC = () => {
     });
   };
 
+  const handleDateChange = (name: 'checkIn' | 'checkOut', date: Date | undefined) => {
+    if (date) {
+      // Ensure we store it as yyyy-MM-dd in local timezone
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, '0');
+      const day = String(date.getDate()).padStart(2, '0');
+      const value = `${year}-${month}-${day}`;
+      handleInputChange({ target: { name, value } } as any);
+    }
+  };
+
   const handleAdultsChange = (value: string) => {
     setFormData(prev => ({ ...prev, adults: value }));
   };
@@ -197,33 +212,78 @@ export const ContactSection: React.FC = () => {
                 </div>
 
                 <div className="grid sm:grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <label htmlFor="checkIn" className="text-sm font-medium text-foreground">
+                  <div className="space-y-2 flex flex-col pt-1">
+                    <label className="text-sm font-medium text-foreground">
                       {t('checkInDate')}
                     </label>
-                    <Input
-                      id="checkIn"
-                      name="checkIn"
-                      type="date"
-                      min={new Date().toISOString().split("T")[0]}
-                      value={formData.checkIn}
-                      onChange={handleInputChange}
-                      className="bg-muted border-border focus:border-primary"
-                    />
+                    <Popover>
+                      <PopoverTrigger asChild>
+                        <Button
+                          variant="outline"
+                          className={cn(
+                            "w-full justify-start text-left font-normal bg-muted border-border focus:border-primary",
+                            !formData.checkIn && "text-muted-foreground"
+                          )}
+                        >
+                          <Calendar className="mr-2 h-4 w-4" />
+                          {formData.checkIn ? (
+                            format(new Date(formData.checkIn + "T12:00:00"), "PPP")
+                          ) : (
+                            <span>{t('checkInDate')}</span>
+                          )}
+                        </Button>
+                      </PopoverTrigger>
+                      <PopoverContent className="w-auto p-0" align="start">
+                        <CalendarComponent
+                          mode="single"
+                          selected={formData.checkIn ? new Date(formData.checkIn + "T12:00:00") : undefined}
+                          onSelect={(date) => handleDateChange('checkIn', date)}
+                          disabled={(date) => {
+                            const today = new Date();
+                            today.setHours(0, 0, 0, 0);
+                            return date < today;
+                          }}
+                          initialFocus
+                        />
+                      </PopoverContent>
+                    </Popover>
                   </div>
-                  <div className="space-y-2">
-                    <label htmlFor="checkOut" className="text-sm font-medium text-foreground">
+
+                  <div className="space-y-2 flex flex-col pt-1">
+                    <label className="text-sm font-medium text-foreground">
                       {t('checkOutDate')}
                     </label>
-                    <Input
-                      id="checkOut"
-                      name="checkOut"
-                      type="date"
-                      min={formData.checkIn ? formData.checkIn : new Date().toISOString().split("T")[0]}
-                      value={formData.checkOut}
-                      onChange={handleInputChange}
-                      className="bg-muted border-border focus:border-primary"
-                    />
+                    <Popover>
+                      <PopoverTrigger asChild>
+                        <Button
+                          variant="outline"
+                          className={cn(
+                            "w-full justify-start text-left font-normal bg-muted border-border focus:border-primary",
+                            !formData.checkOut && "text-muted-foreground"
+                          )}
+                        >
+                          <Calendar className="mr-2 h-4 w-4" />
+                          {formData.checkOut ? (
+                            format(new Date(formData.checkOut + "T12:00:00"), "PPP")
+                          ) : (
+                            <span>{t('checkOutDate')}</span>
+                          )}
+                        </Button>
+                      </PopoverTrigger>
+                      <PopoverContent className="w-auto p-0" align="start">
+                        <CalendarComponent
+                          mode="single"
+                          selected={formData.checkOut ? new Date(formData.checkOut + "T12:00:00") : undefined}
+                          onSelect={(date) => handleDateChange('checkOut', date)}
+                          disabled={(date) => {
+                            const minDate = formData.checkIn ? new Date(formData.checkIn + "T12:00:00") : new Date();
+                            if (!formData.checkIn) minDate.setHours(0, 0, 0, 0);
+                            return date <= minDate;
+                          }}
+                          initialFocus
+                        />
+                      </PopoverContent>
+                    </Popover>
                   </div>
                 </div>
 

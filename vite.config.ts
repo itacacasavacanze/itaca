@@ -8,7 +8,7 @@ export default defineConfig(({ mode }) => ({
   base: mode === 'production' ? '/' : '/',
   server: {
     base: mode === 'production' ? '/' : '/',
-    host: "::",
+    host: "0.0.0.0",
     port: 8080,
     proxy: {
       '/api': {

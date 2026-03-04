@@ -10,62 +10,77 @@ Mediterranean boutique hotel theme with warm, elegant tones
 @layer base {
   :root {
     /* Mediterranean Color Palette */
-    --background: 42 25% 97%; /* Warm sand white */
-    --foreground: 200 20% 15%; /* Deep sea blue-gray */
+    --background: 42 25% 97%;
+    /* Warm sand white */
+    --foreground: 200 20% 15%;
+    /* Deep sea blue-gray */
 
-    --card: 0 0% 100%; /* Pure white for cards */
+    --card: 0 0% 100%;
+    /* Pure white for cards */
     --card-foreground: 200 20% 15%;
 
     --popover: 0 0% 100%;
     --popover-foreground: 200 20% 15%;
 
     /* Primary - Sea Blue */
-    --primary: 205 47% 32%; /* Mediterranean sea blue */
+    --primary: 205 47% 32%;
+    /* Mediterranean sea blue */
     --primary-foreground: 0 0% 98%;
 
     /* Secondary - Terracotta */
-    --secondary: 34 35% 65%; /* Warm terracotta */
+    --secondary: 34 35% 65%;
+    /* Warm terracotta */
     --secondary-foreground: 200 20% 15%;
 
     /* Muted - Sand tones */
-    --muted: 42 25% 92%; /* Light sand */
+    --muted: 42 25% 92%;
+    /* Light sand */
     --muted-foreground: 200 15% 35%;
 
     /* Accent - Golden sand */
-    --accent: 45 55% 75%; /* Warm golden sand */
+    --accent: 45 55% 75%;
+    /* Warm golden sand */
     --accent-foreground: 200 20% 15%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 42 20% 88%; /* Soft sand border */
+    --border: 42 20% 88%;
+    /* Soft sand border */
     --input: 42 20% 88%;
-    --ring: 205 47% 32%; /* Sea blue ring */
+    --ring: 205 47% 32%;
+    /* Sea blue ring */
 
     --radius: 0.75rem;
 
     /* Custom Mediterranean Variables */
-    --terracotta: 15 45% 70%; /* Sicily terracotta */
-    --sand: 42 35% 88%; /* Beach sand */
-    --sea-blue: 205 47% 32%; /* Mediterranean sea */
-    --sea-light: 205 47% 45%; /* Lighter sea blue */
-    --cream: 45 30% 95%; /* Cream white */
-    --golden: 45 65% 70%; /* Golden hour */
-    
+    --terracotta: 15 45% 70%;
+    /* Sicily terracotta */
+    --sand: 42 35% 88%;
+    /* Beach sand */
+    --sea-blue: 205 47% 32%;
+    /* Mediterranean sea */
+    --sea-light: 205 47% 45%;
+    /* Lighter sea blue */
+    --cream: 45 30% 95%;
+    /* Cream white */
+    --golden: 45 65% 70%;
+    /* Golden hour */
+
     /* Gradients */
     --gradient-hero: linear-gradient(135deg, hsl(var(--sea-blue)) 0%, hsl(var(--terracotta)) 100%);
     --gradient-sunset: linear-gradient(180deg, hsl(var(--golden)) 0%, hsl(var(--terracotta)) 100%);
     --gradient-sea: linear-gradient(135deg, hsl(var(--sea-blue)) 0%, hsl(var(--sea-light)) 100%);
-    
+
     /* Shadows */
     --shadow-soft: 0 4px 20px -2px hsl(var(--sea-blue) / 0.1);
     --shadow-elegant: 0 10px 40px -10px hsl(var(--sea-blue) / 0.2);
     --shadow-card: 0 8px 30px -8px hsl(var(--terracotta) / 0.15);
-    
+
     /* Typography */
     --font-heading: 'Playfair Display', serif;
     --font-body: 'Inter', sans-serif;
-    
+
     /* Animations */
     --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     --transition-elegant: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
@@ -141,21 +156,21 @@ Mediterranean boutique hotel theme with warm, elegant tones
   .animate-fade-in {
     animation: fadeIn 0.8s ease-out forwards;
   }
-  
+
   .animate-slide-up {
     animation: slideUp 0.6s ease-out forwards;
   }
-  
+
   .animate-scale-in {
     animation: scaleIn 0.4s ease-out forwards;
   }
-  
+
   /* Gallery scrollbar hide */
   .scrollbar-hide {
     -ms-overflow-style: none;
     scrollbar-width: none;
   }
-  
+
   .scrollbar-hide::-webkit-scrollbar {
     display: none;
   }
@@ -226,6 +241,11 @@ Mediterranean boutique hotel theme with warm, elegant tones
     padding: 0.5rem;
     transition: all 0.3s ease;
     position: relative;
+    color: hsl(var(--foreground));
+  }
+
+  .mediterranean-calendar .react-calendar__month-view__days__day--weekend {
+    color: hsl(var(--foreground));
   }
 
   .mediterranean-calendar .react-calendar__tile:hover {
@@ -299,11 +319,19 @@ Mediterranean boutique hotel theme with warm, elegant tones
   }
 }
 
+/* Fix: Firefox colors weekend days red in native date pickers.
+   Forcing color-scheme: light ensures the popup always uses the light-mode
+   calendar style, which does not apply red to weekends. */
+input[type="date"] {
+  color-scheme: light;
+}
+
 @keyframes fadeIn {
   from {
     opacity: 0;
     transform: translateY(20px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -315,6 +343,7 @@ Mediterranean boutique hotel theme with warm, elegant tones
     opacity: 0;
     transform: translateY(30px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -326,6 +355,7 @@ Mediterranean boutique hotel theme with warm, elegant tones
     opacity: 0;
     transform: scale(0.95);
   }
+
   to {
     opacity: 1;
     transform: scale(1);
