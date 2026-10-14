@@ -5,6 +5,7 @@ import { useLanguage } from '../contexts/LanguageContext';
 import { Button } from './ui/button';
 import { fetchAvailability, type AvailabilityData } from '../services/availabilityService';
 import { useContactStore } from '../hooks/useContactStore';
+import { useShowPrices } from '../hooks/useShowPrices';
 import 'react-calendar/dist/Calendar.css';
 
 type ValuePiece = Date | null;
@@ -12,6 +13,7 @@ type Value = ValuePiece | [ValuePiece, ValuePiece];
 
 export const AvailabilityCalendar: React.FC = () => {
   const { t, language } = useLanguage();
+  const showPrices = useShowPrices();
   const [value, setValue] = useState<Value>(null);
   const [availabilityData, setAvailabilityData] = useState<Record<string, AvailabilityData>>({});
   const [loading, setLoading] = useState(true);
@@ -58,7 +60,7 @@ export const AvailabilityCalendar: React.FC = () => {
 
     return (
       <div className="availability-tile-content">
-        {availability.available && availability.websitePrice && (
+        {showPrices && availability.available && availability.websitePrice && (
           <div className="text-xs font-semibold text-white bg-primary/90 rounded px-1 py-0.5 mt-1">
             €{availability.websitePrice}
           </div>
@@ -108,7 +110,7 @@ export const AvailabilityCalendar: React.FC = () => {
     return className.trim();
   };
 
-  if (loading) {
+  if (loading || showPrices === null) {
     return (
       <div className="flex items-center justify-center py-20">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
@@ -122,7 +124,7 @@ export const AvailabilityCalendar: React.FC = () => {
         {/* Header */}
         <div className="text-center space-y-4 mb-16">
           <h2 className="text-4xl lg:text-5xl font-heading font-bold text-foreground">
-            {t('availability')} & {t('rates')}
+            {t('availability')}{showPrices && <> & {t('rates')}</>}
           </h2>
           <div className="w-20 h-1 bg-gradient-sea rounded-full mx-auto"></div>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">

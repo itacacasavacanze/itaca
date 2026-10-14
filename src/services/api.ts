@@ -45,6 +45,33 @@ export const api = {
         return data;
     },
 
+    // Site settings: price visibility toggle
+    // Safe default: if the setting is missing or can't be read, prices are shown.
+    getShowPrices: async (): Promise<boolean> => {
+        try {
+            const { data, error } = await supabase
+                .from('site_settings')
+                .select('value')
+                .eq('key', 'show_prices')
+                .maybeSingle();
+            if (error || !data) return true;
+            return data.value !== false;
+        } catch {
+            return true;
+        }
+    },
+
+    // Admin only (requires a logged-in Supabase session; enforced by RLS)
+    setShowPrices: async (showPrices: boolean): Promise<void> => {
+        const { error } = await supabase
+            .from('site_settings')
+            .upsert(
+                { key: 'show_prices', value: showPrices, updated_at: new Date().toISOString() },
+                { onConflict: 'key' }
+            );
+        if (error) throw new Error(error.message);
+    },
+
     // Availability (calling our new Vercel Function)
     getAvailability: async (start?: string, end?: string) => {
         const params = new URLSearchParams();
