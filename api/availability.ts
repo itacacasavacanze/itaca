@@ -31,6 +31,22 @@ export default async function handler(request: Request) {
 
         const priceMap = new Map(prices?.map((p: any) => [p.date, p]));
 
+        // 1b. Price visibility (admin toggle). Safe default: show prices if the
+        // setting is missing or can't be read.
+        let showPrices = true;
+        try {
+            const { data: setting, error: settingError } = await supabase
+                .from('site_settings')
+                .select('value')
+                .eq('key', 'show_prices')
+                .maybeSingle();
+            if (!settingError && setting && setting.value === false) {
+                showPrices = false;
+            }
+        } catch (err) {
+            console.error('Error reading show_prices setting:', err);
+        }
+
         // 2. Fetch Availability from Booking.com
         const calendarIds = Object.keys(CALENDAR_URLS) as Array<keyof typeof CALENDAR_URLS>;
         const bookedDatesPerCalendar: Record<string, Set<string>> = {};
@@ -96,7 +112,8 @@ export default async function handler(request: Request) {
             result.push({
                 date: dateStr,
                 available: isAvailable,
-                websitePrice: finalPrice,
+                // When prices are hidden, leave them out of the response entirely
+                ...(showPrices ? { websitePrice: finalPrice } : {}),
                 isWeekend
             });
         }

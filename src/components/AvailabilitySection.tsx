@@ -3,9 +3,11 @@ import { Calendar as CalendarIcon, ChevronLeft, ChevronRight, MessageCircle, Pho
 import { useLanguage } from '../contexts/LanguageContext';
 import { Button } from './ui/button';
 import { calculatePrice } from '../services/pricingService';
+import { useShowPrices } from '../hooks/useShowPrices';
 
 export const AvailabilitySection: React.FC = () => {
   const { t, language } = useLanguage();
+  const showPrices = useShowPrices();
   const [currentMonth, setCurrentMonth] = useState(new Date());
 
   const getDaysInMonth = (date: Date) => {
@@ -68,7 +70,7 @@ export const AvailabilitySection: React.FC = () => {
         {/* Header */}
         <div className="text-center space-y-4 mb-16">
           <h2 className="text-4xl lg:text-5xl font-heading font-bold text-foreground">
-            {t('availability')} & {t('rates')}
+            {t('availability')}{showPrices && <> & {t('rates')}</>}
           </h2>
           <div className="w-20 h-1 bg-gradient-sea rounded-full mx-auto"></div>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
@@ -152,9 +154,11 @@ export const AvailabilitySection: React.FC = () => {
                       {!isPast && (
                         <div className="text-xs">
                           {isAvailable ? (
-                            <div className="text-primary font-semibold">
-                              €{price}
-                            </div>
+                            showPrices ? (
+                              <div className="text-primary font-semibold">
+                                €{price}
+                              </div>
+                            ) : null
                           ) : (
                             <div className="text-destructive font-medium">
                               {t('booked')}

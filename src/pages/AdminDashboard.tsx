@@ -5,6 +5,7 @@ import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Label } from '@/components/ui/label';
+import { Switch } from '@/components/ui/switch';
 import { toast } from 'sonner';
 import { useNavigate } from 'react-router-dom';
 
@@ -16,6 +17,8 @@ export default function AdminDashboard() {
     const [modifier, setModifier] = useState('');
     const [daysOfWeek, setDaysOfWeek] = useState<number[]>([0, 1, 2, 3, 4, 5, 6]);
     const [isBlocked, setIsBlocked] = useState(false);
+    const [showPrices, setShowPrices] = useState<boolean | null>(null);
+    const [savingVisibility, setSavingVisibility] = useState(false);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -29,6 +32,25 @@ export default function AdminDashboard() {
             return;
         }
         loadPrices();
+        loadVisibility();
+    };
+
+    const loadVisibility = async () => {
+        setShowPrices(await api.getShowPrices());
+    };
+
+    const handleVisibilityToggle = async (newValue: boolean) => {
+        setSavingVisibility(true);
+        try {
+            await api.setShowPrices(newValue);
+            setShowPrices(newValue);
+            toast.success(newValue ? 'Prices are now visible on the website' : 'Prices are now hidden on the website');
+        } catch (error) {
+            toast.error('Failed to save price visibility');
+            console.error(error);
+        } finally {
+            setSavingVisibility(false);
+        }
     };
 
     const loadPrices = async () => {
@@ -102,6 +124,32 @@ export default function AdminDashboard() {
                 <h1 className="text-3xl font-bold">Admin Dashboard</h1>
                 <Button variant="outline" onClick={handleLogout}>Logout</Button>
             </div>
+
+            <Card className="mb-8">
+                <CardHeader>
+                    <CardTitle>Price Visibility</CardTitle>
+                </CardHeader>
+                <CardContent>
+                    <div className="flex items-center justify-between gap-4">
+                        <div>
+                            <Label htmlFor="showPrices" className="text-base font-semibold">Show prices on website</Label>
+                            <p className="text-sm text-muted-foreground">
+                                {showPrices === null
+                                    ? 'Loading…'
+                                    : showPrices
+                                        ? 'Visitors see the nightly price on each available date.'
+                                        : 'Prices are hidden. Visitors only see availability. Your saved prices are kept.'}
+                            </p>
+                        </div>
+                        <Switch
+                            id="showPrices"
+                            checked={showPrices ?? true}
+                            disabled={showPrices === null || savingVisibility}
+                            onCheckedChange={handleVisibilityToggle}
+                        />
+                    </div>
+                </CardContent>
+            </Card>
 
             <Card className="mb-8">
                 <CardHeader>
